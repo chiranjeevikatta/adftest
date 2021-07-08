@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid-19df"
+		},
+		"ls_ablob_covidreportingsa_connectionString": {
+			"value": ""
+		},
+		"ls_adls_covidreportingdl_accountKey": {
+			"value": ""
+		},
+		"ls_hdi_covid_cluster_password": {
+			"value": ""
+		},
+		"ls_db_covid_cluster_accessToken": {
+			"value": ""
+		},
+		"ls_sql_cvoid_db_connectionString": {
+			"value": ""
+		},
+		"ls_azure_function_ftransfer_functionKey": {
+			"value": ""
+		},
+		"ls_db_poc_accessToken": {
+			"value": ""
+		},
+		"tr_population_data_arrives_properties_typeProperties_scope": {
+			"value": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourceGroups/covid_reporting_rg/providers/Microsoft.Storage/storageAccounts/covid19sa1"
+		},
+		"ls_adls_covidreportingdl_properties_typeProperties_url": {
+			"value": "https://covid19sa4dl.dfs.core.windows.net"
+		},
+		"ls_http_opendata_ecdc_europa_eu_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseURL}"
+		},
+		"ls_http_opendata_ecdc_europa_eu_fixed_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseURL}"
+		},
+		"ls_hdi_covid_cluster_properties_typeProperties_userName": {
+			"value": "admin"
+		},
+		"ls_azure_function_ftransfer_properties_typeProperties_functionAppUrl": {
+			"value": "https://ftransfer.azurewebsites.net"
+		}
+	}
+}
