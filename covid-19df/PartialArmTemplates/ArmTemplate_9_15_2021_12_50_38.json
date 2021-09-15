@@ -6,18 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "covid-19df"
-		},
-		"ls_covid19sa4dl_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ls_covid19sa4dl'"
-		},
-		"ls_demodb_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_demodb'"
-		},
-		"ls_covid19sa4dl_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -50,8 +38,7 @@
 							},
 							"dataset": {
 								"referenceName": "ds_watermakr_table",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						}
 					},
@@ -76,8 +63,7 @@
 							},
 							"dataset": {
 								"referenceName": "ds_watermakr_table",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						}
 					},
@@ -140,15 +126,13 @@
 						"inputs": [
 							{
 								"referenceName": "ds_watermakr_table",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_covid19sa4dl",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -196,16 +180,11 @@
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_watermakr_table')]",
-				"[concat(variables('factoryId'), '/datasets/ds_covid19sa4dl')]",
-				"[concat(variables('factoryId'), '/linkedServices/ls_demodb')]"
+				"[concat(variables('factoryId'), '/datasets/ds_covid19sa4dl')]"
 			]
 		},
 		{
@@ -303,9 +282,7 @@
 					"table": "watermarktable"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_demodb')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ls_covid19sa4dl')]",
@@ -315,24 +292,11 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('ls_covid19sa4dl_properties_typeProperties_url')]",
+					"url": "https://covid19sa4dl.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('ls_covid19sa4dl_accountKey')]"
+						"value": "**********"
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_demodb')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_demodb_connectionString')]"
 				}
 			},
 			"dependsOn": []
