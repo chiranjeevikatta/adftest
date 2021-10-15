@@ -1,0 +1,65 @@
+{
+	"name": "PL_TEST",
+	"properties": {
+		"activities": [
+			{
+				"name": "LOOK UP DELTA",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureDatabricksDeltaLakeSource",
+						"query": "SELECT max(ingestion_date) as max_ingestion_date FROM f1_processed.circuits"
+					},
+					"dataset": {
+						"referenceName": "AzureDatabricksDeltaLakeDataset1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Lookup UP DELTA 2",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LOOK UP DELTA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureDatabricksDeltaLakeSource",
+						"query": {
+							"value": "@concat('SELECT * FROM f1_processed.circuits where to_date(ingestion_date,''MM/dd/yyyy'')>= ''',formatDateTime(activity('LOOK UP DELTA').output.firstrow.max_ingestion_date,'MM/dd/yyyy'),''' ')\n",
+							"type": "Expression"
+						}
+					},
+					"dataset": {
+						"referenceName": "AzureDatabricksDeltaLakeDataset1",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
