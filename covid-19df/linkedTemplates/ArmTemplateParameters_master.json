@@ -5,11 +5,17 @@
 		"factoryName": {
 			"value": "covid-19df"
 		},
+		"AzureDatabricksDeltaLake1_accessToken": {
+			"value": ""
+		},
 		"ls_covid19sa4dl_accountKey": {
 			"value": ""
 		},
 		"ls_demodb_connectionString": {
 			"value": ""
+		},
+		"LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl": {
+			"value": "https://key-vault-formula1.vault.azure.net/"
 		},
 		"ls_covid19sa4dl_properties_typeProperties_url": {
 			"value": "https://covid19sa4dl.dfs.core.windows.net"
