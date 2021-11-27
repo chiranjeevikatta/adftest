@@ -1,0 +1,10 @@
+{
+	"name": "LS_AZURE_KEY_VAULT",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://key-vault-formula1.vault.azure.net/"
+		}
+	}
+}
