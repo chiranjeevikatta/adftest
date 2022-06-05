@@ -7,7 +7,7 @@
 			"domain": "https://adb-3811451313600048.8.azuredatabricks.net",
 			"authentication": "MSI",
 			"workspaceResourceId": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourceGroups/covid_reporting_rg/providers/Microsoft.Databricks/workspaces/databricks_poc",
-			"existingClusterId": "0919-162248-eying735"
+			"existingClusterId": "0605-184635-hzz9bz2s"
 		}
 	}
 }
