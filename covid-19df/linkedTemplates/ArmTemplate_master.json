@@ -27,6 +27,14 @@
 			"type": "string",
 			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
 		},
+		"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.body.fileName"
+		},
+		"BLOB_TRIGGER_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourceGroups/covid_reporting_rg/providers/Microsoft.Storage/storageAccounts/covid19sa4dl"
+		},
 		"tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.windowEndTime"
@@ -73,12 +81,38 @@
 					"ls_covid19sa4dl_properties_typeProperties_url": {
 						"value": "[parameters('ls_covid19sa4dl_properties_typeProperties_url')]"
 					},
+					"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
+						"value": "[parameters('BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME')]"
+					},
+					"BLOB_TRIGGER_properties_typeProperties_scope": {
+						"value": "[parameters('BLOB_TRIGGER_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "covid-19df_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
 					"tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
 						"value": "[parameters('tr_process_formula1_data_properties_pipeline_parameters_p_window_end_date')]"
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'covid-19df_ArmTemplate_0')]"
+			]
 		}
 	]
 }
