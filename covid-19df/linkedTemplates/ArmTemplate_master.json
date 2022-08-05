@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
 		},
+		"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0605-184635-hzz9bz2s"
+		},
 		"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.body.fileName"
@@ -80,6 +84,9 @@
 					},
 					"ls_covid19sa4dl_properties_typeProperties_url": {
 						"value": "[parameters('ls_covid19sa4dl_properties_typeProperties_url')]"
+					},
+					"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_formula1_properties_typeProperties_existingClusterId')]"
 					},
 					"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
 						"value": "[parameters('BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME')]"

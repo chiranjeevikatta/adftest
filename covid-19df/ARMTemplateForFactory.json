@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
 		},
+		"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0605-184635-hzz9bz2s"
+		},
 		"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.body.fileName"
@@ -235,29 +239,12 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Print_File_Name",
-						"type": "DatabricksNotebook",
+						"name": "Wait",
+						"type": "Wait",
 						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Blob_Trigger/Blob_Trigger",
-							"baseParameters": {
-								"File_Name": {
-									"value": "@pipeline().parameters.PL_FILE_NAME",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "ls_databricks_formula1",
-							"type": "LinkedServiceReference"
+							"waitTimeInSeconds": 60
 						}
 					}
 				],
@@ -275,9 +262,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_databricks_formula1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PL_Every_5min')]",
@@ -1365,7 +1350,7 @@
 					"domain": "https://adb-3811451313600048.8.azuredatabricks.net",
 					"authentication": "MSI",
 					"workspaceResourceId": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourceGroups/covid_reporting_rg/providers/Microsoft.Databricks/workspaces/databricks_poc",
-					"existingClusterId": "0605-184635-hzz9bz2s"
+					"existingClusterId": "[parameters('ls_databricks_formula1_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
@@ -1389,7 +1374,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1404,7 +1389,7 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/raw/blobs/blob_trigger/input/",
-					"blobPathEndsWith": ".txt",
+					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('BLOB_TRIGGER_properties_typeProperties_scope')]",
 					"events": [
@@ -1480,6 +1465,38 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_ingest_formula1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Web1",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		}
 	]
 }
