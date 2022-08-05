@@ -2,7 +2,7 @@
 	"name": "BLOB_TRIGGER",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -17,7 +17,7 @@
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/raw/blobs/blob_trigger/input/",
-			"blobPathEndsWith": ".txt",
+			"blobPathEndsWith": ".csv",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourceGroups/covid_reporting_rg/providers/Microsoft.Storage/storageAccounts/covid19sa4dl",
 			"events": [
