@@ -1,0 +1,12 @@
+{
+	"name": "HttpServer1",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
