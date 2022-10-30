@@ -1,0 +1,14 @@
+{
+	"name": "ls_covid19sa4dl2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://covid19sa4dl.dfs.core.windows.net/",
+			"credential": {
+				"referenceName": "cr_mi",
+				"type": "CredentialReference"
+			}
+		}
+	}
+}
