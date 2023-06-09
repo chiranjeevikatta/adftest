@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "LookupOldWatermarkValue",
+				"description": "looks for watermark",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
