@@ -19,13 +19,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_demodb'"
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://key-vault-formula1.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"ls_covid19sa4dl_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
+		},
+		"ls_covid19sa4dl2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net/"
 		},
 		"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -79,14 +91,23 @@
 					"ls_demodb_connectionString": {
 						"value": "[parameters('ls_demodb_connectionString')]"
 					},
+					"HttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
 					"LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl": {
 						"value": "[parameters('LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl')]"
+					},
+					"RestService1_properties_typeProperties_url": {
+						"value": "[parameters('RestService1_properties_typeProperties_url')]"
 					},
 					"ls_covid19sa4dl_properties_typeProperties_url": {
 						"value": "[parameters('ls_covid19sa4dl_properties_typeProperties_url')]"
 					},
 					"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ls_databricks_formula1_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_covid19sa4dl2_properties_typeProperties_url": {
+						"value": "[parameters('ls_covid19sa4dl2_properties_typeProperties_url')]"
 					},
 					"BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME": {
 						"value": "[parameters('BLOB_TRIGGER_properties_PL_BLOB_TRIGGER_parameters_PL_FILE_NAME')]"

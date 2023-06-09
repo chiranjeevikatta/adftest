@@ -19,13 +19,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_demodb'"
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://key-vault-formula1.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"ls_covid19sa4dl_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net"
+		},
+		"ls_covid19sa4dl2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://covid19sa4dl.dfs.core.windows.net/"
 		},
 		"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -56,6 +68,7 @@
 				"activities": [
 					{
 						"name": "LookupOldWatermarkValue",
+						"description": "looks for watermark",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -231,6 +244,33 @@
 				"[concat(variables('factoryId'), '/datasets/ds_covid19sa4dl')]",
 				"[concat(variables('factoryId'), '/linkedServices/ls_demodb')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MARKET_INSIGHTS_WEEKLY_PIPE')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "MARKET_INSIGHTS_WEEKLY"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PL_BLOB_TRIGGER')]",
@@ -1310,6 +1350,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_AZURE_KEY_VAULT')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1318,6 +1373,21 @@
 				"type": "AzureKeyVault",
 				"typeProperties": {
 					"baseUrl": "[parameters('LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestService1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
 				}
 			},
 			"dependsOn": []
@@ -1338,6 +1408,25 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_covid19sa4dl2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_covid19sa4dl2_properties_typeProperties_url')]",
+					"credential": {
+						"referenceName": "cr_mi",
+						"type": "CredentialReference"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/credentials/cr_mi')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ls_databricks_formula1')]",
@@ -1467,34 +1556,14 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/cr_mi')]",
+			"type": "Microsoft.DataFactory/factories/credentials",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Web1",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"method": "GET",
-							"headers": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				"type": "ManagedIdentity",
+				"typeProperties": {
+					"resourceId": "/subscriptions/b117733f-13a4-47e6-858d-481ae1f8d40b/resourcegroups/covid_reporting_rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi_covid19sa4dl"
+				}
 			},
 			"dependsOn": []
 		}

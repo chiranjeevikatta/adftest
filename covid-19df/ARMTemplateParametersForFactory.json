@@ -14,11 +14,20 @@
 		"ls_demodb_connectionString": {
 			"value": ""
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"LS_AZURE_KEY_VAULT_properties_typeProperties_baseUrl": {
 			"value": "https://key-vault-formula1.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://eforexcel.com/wp/wp-content/uploads/2020/09/Hr1m.zip"
+		},
 		"ls_covid19sa4dl_properties_typeProperties_url": {
 			"value": "https://covid19sa4dl.dfs.core.windows.net"
+		},
+		"ls_covid19sa4dl2_properties_typeProperties_url": {
+			"value": "https://covid19sa4dl.dfs.core.windows.net/"
 		},
 		"ls_databricks_formula1_properties_typeProperties_existingClusterId": {
 			"value": "0605-184635-hzz9bz2s"
