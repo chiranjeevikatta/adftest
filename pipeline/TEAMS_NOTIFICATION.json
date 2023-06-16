@@ -1,0 +1,61 @@
+{
+	"name": "TEAMS_NOTIFICATION",
+	"properties": {
+		"activities": [
+			{
+				"name": "set_message_card",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "messageCard",
+					"value": "{\n    \"@type\": \"MessageCard\",\n    \"@context\": \"http://schema.org/extensions\",\n    \"themeColor\": \"0076D7\",\n    \"summary\": \"Pipeline status alert message​​​​\",\n    \"sections\": [\n        {\n            \"activityTitle\": \"Pipeline execution alert​​​​\",\n            \"facts\": [\n                {\n                    \"name\": \"Subscription Id:\",\n                    \"value\": \"test\"\n                },\n                {\n                    \"name\": \"Resource Group:\",\n                    \"value\": \"test\"\n                },\n                {\n                    \"name\": \"Data Factory Name:\",\n                    \"value\": \"test\"\n                }\n            ],\n            \"markdown\": true\n        }\n    ]\n}"
+				}
+			},
+			{
+				"name": "Invoke_teams_URL",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "set_message_card",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://lpuin.webhook.office.com/webhookb2/17840984-1146-481b-8eaa-c78f6366cea6@e14e73eb-5251-4388-8d67-8f9f2e2d5a46/IncomingWebhook/62df0cf5dba747e3b0f514aa398a5f33/2840e15c-1a07-4141-b4c8-79649ac4b267",
+					"method": "POST",
+					"body": {
+						"value": "@json(variables('messageCard'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"messageCard": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "TEAMS_NOTIFICAITON"
+		},
+		"annotations": []
+	}
+}
