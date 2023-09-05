@@ -14,7 +14,7 @@
 			}
 		],
 		"parameters": {
-			"v_folder_name": {
+			"v_file_name": {
 				"type": "string"
 			}
 		},
