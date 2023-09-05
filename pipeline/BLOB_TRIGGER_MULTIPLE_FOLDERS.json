@@ -1,0 +1,26 @@
+{
+	"name": "BLOB_TRIGGER_MULTIPLE_FOLDERS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"v_folder_name": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "BlobTrigger"
+		},
+		"annotations": []
+	}
+}
